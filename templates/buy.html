@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fitness Equipment Store</title>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+           body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-image: url("\\media\\images\\homebg.avif");
+                background-size: cover; /* Adjust the background size as needed */
+                background-position: center;
+                font-family: 'Times New Roman', Times, serif;
+                height: 100vh;
+            }
+            
+            footer {
+                color: #fff;
+                text-align: center;
+                padding: 1em 0;
+                bottom: 0;
+                width: 100%;
+            }
+            #disp{
+              border-radius: 30px;
+              padding:60px;
+              color:rgb(0, 10, 0);
+              background-color: white;
+              margin: auto;
+              margin-top: 100px;
+              height: 300px;
+              width: 600px;
+              text-align: center;
+              font-size: 50px;
+
+            }
+        </style>
+       
+    </head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+          
+          <video width="140" height="90" autoplay loop muted>
+            <source src="\media\videos\fh.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          
+          <div class="navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link px-3" href="/">Home</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/prod">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/cartg">Cart</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/contact">Contact</a>
+              </li>
+              <li>
+                <button class="btn btn-light" style="margin-left: 720px;"><a class="nav-link px-3" style="color: black;" href="/">LogOut</a></button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        
+      </div>
+        
+        <div id="disp">
+          {% if context.msg == "Invalid Quantity Values" %}
+          <h1 style="color: red;font-style: oblique;">Remove the products with quantity '0' from the cart</h1>
+          {% else %}
+              <h1 style="color: rgb(121, 61, 18);font-style: italic;font-weight: bold;">ORDER PLACED</h1>
+              <p style="font-size: 25px;">Total Amount : {{tot}}</p>
+              
+              <p style="font-size: 25px;">Check Your Orders In "MyOrders"</p>
+              <p style="font-size: 25px;">Thanks For Your Purchase , Please Visit Again</p>
+          {% endif %}
+        </div>
+        
+</body>
+</html>

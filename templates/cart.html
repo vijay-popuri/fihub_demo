@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fitness Equipment Store</title>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+           body {
+                margin: 0;
+                padding: 20;
+                max-height: 100vh;
+                overflow:auto;
+                background-image: url("\\media\\images\\homebg.avif");
+                background-size: cover; /* Adjust the background size as needed */
+                background-position: center;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            h1{
+              color:black;
+            }
+            footer {
+                color: #fff;
+                text-align: center;
+                padding: 1em 0;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+          
+          <video width="140" height="90" autoplay loop muted>
+            <source src="\media\videos\fh.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        
+          <div class="navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link px-3" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/work">WorkoutPlan</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/prod">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="#">Cart</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/myorders">Myorders</a>
+              </li> 
+              <li class="nav-item">
+                <a class="nav-link px-3" href="/contact">Contact</a>
+              </li>
+              <li>
+                <button class="btn btn-light" style="margin-left: 720px;"><a class="nav-link px-3" style="color: black;" href="/">LogOut</a></button>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      
+      <div align="center"  style="background-color:whitesmoke;width: 1000px;margin-left: auto;margin-right: auto;border-radius: 20px;">
+        <br>
+        <h1>Cart</h1> 
+        {{context}}<hr><br/>
+        <div style="float: right;text-align: center;" >
+            <h2 style="margin-right: 30px;color:black;font-family: 'Times New Roman', Times, serif;">
+            User:{{cust}}<br>
+              
+            {% if msg == 'Cart Is Empty' %}
+              
+            {% else %}
+              </h2><form method="post" action="/remitem">{% csrf_token %}
+                <h5 ><input class="btn btn-danger" type="submit" value="Remove Top Item" /></h5></form>
+            {% endif %}
+        </div>
+        <div align="left" style="padding-left: 9%;">
+            <h3 align="center" style="color:blueviolet;font-style: oblique;">{{msg}}</h3><br/><br/>
+            
+           <!-- {% if loop.index == 1 %}
+               This is the first iteration, make the button invisible -->
+              <!--<button style="display: none;">Your Button</button>
+            {% else %}
+               Display the button for subsequent iterations 
+              <button>Your Button</button>
+            {% endif %}-->
+           
+            <form method="post" action="/buy">{% csrf_token %}
+            <input type="hidden" name="nm" value="{{cust}}">
+            {% for item in custfilter %}
+            <div style="color: white;max-width: 800px;">
+            <div class="card mb-3" style="max-width: 650px;">
+              <div class="row g-0">
+                <div class="col-md-6">
+                  <img src="{{item.img.url}}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body">
+                    
+                    <h5 class="card-title"><b>{{ item.prod }}</b></h5>
+                    <p class="card-text"><b>Price :</b> {{ item.prc }} </p>
+                    <p class="card-text"><b>Available Quantity :</b> {{item.quan}}</p>
+                    <p class="card-text"><b>Description :</b> {{item.des}}</p>
+                    <b>Enter Quantity:</b>&nbsp;&nbsp;&nbsp;
+                    <input required type="number" min="1" max="5" name="values[]" class="dynamic-input" value="{{ user_data.0 }}" oninput="validateInput(this)" maxlength="1"/><br><br>
+                    <input type="hidden" name="product" value="{{item.prod}}">
+                    <input type="hidden" name="usr" value="{{cust}}"/>
+                    <div>
+                        <form style="float: right;" method="post" action="/rem">{% csrf_token %}
+                          <input type="hidden" name="product" value="{{item.prod}}">
+                          <input type="hidden" name="nm" value="{{cust}}"/>
+                     
+                          {% if forloop.first %}        
+                            <button style="display: none;" class="btn btn-danger" id="innerFormSubmitButton">Remove</button>
+                          {% else %}
+                          
+                            <button class="btn btn-danger" id="innerFormSubmitButton">Remove</button>
+                          {% endif %}
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div><br><hr>
+            {% endfor %}
+            <div>
+              {% if msg == 'Cart Is Empty' %}
+              
+              {% else %}
+                <button style="float:right;margin-right: 40px;" class="btn btn-success">Buy</button>
+              {% endif %}
+            </div>
+          </form>
+          </div>
+          </div>
+          </div>
+      </div>
+      <script>
+          function validateInput(input) {
+              if (input.value > 5) {
+                  input.value = 5;  // Set the value to 5 if it's greater than 5
+              }
+          }
+          document.getElementById('innerFormSubmitButton').addEventListener('click', function(event) {
+            // Prevent the outer form from being submitted
+            event.stopPropagation();
+            event.preventDefault();
+          })
+      </script>
+      
+           
+       
+
+      
+    <br/>
+    <br/><br/><br/><br/><br/><br/>
+    
+</body>
+</html>
